@@ -1,8 +1,11 @@
 ---
 title: "Penguins dashboard"
-format: dashboard
+format: 
+  dashboard:
+    theme: "lux"
 server: shiny
 ---
+
 
 ```{r}
 #| context: setup

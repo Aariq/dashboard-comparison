@@ -6,6 +6,7 @@ data(penguins, package = "palmerpenguins")
 
 ui <- page_navbar(
   title = "Penguins dashboard",
+  theme = bs_theme(version = 5, bootswatch = "lux"),
   sidebar = sidebar(
     title = "Histogram controls",
     varSelectInput(
