@@ -2,6 +2,7 @@ library(shiny)
 library(bslib)
 
 library(ggplot2)
+library(palmerpenguins)
 data(penguins, package = "palmerpenguins")
 
 ui <- page_navbar(
@@ -20,12 +21,14 @@ ui <- page_navbar(
     card(
       height = "60%",
       card_header("Histogram"),
-      plotOutput("hist")
+      plotOutput("hist"),
+      full_screen = TRUE
     ),
     card(
       height = "40%",
       card_header("Scatter"),
-      plotOutput("scatter")
+      plotOutput("scatter"),
+      full_screen = TRUE
     )
   ),
   nav_panel(

@@ -8,3 +8,8 @@ The goal of dashboard-comparison is to create two nearly identical, simple dashb
 
 I'm very curious to get feedback from folks at all levels of experience on which one of these seems "friendlier" to work with.  Eventually I might make a poll or something!
 
+Deployed dashboards:
+
+- [app.R](https://leafyeric.shinyapps.io/dashboard-comparison-Rshiny/)
+- [app.Qmd](https://leafyeric.shinyapps.io/dashboard-comparison-quarto/)
+
