@@ -1,0 +1,68 @@
+---
+title: Survey Results
+author: Eric R. Scott
+---
+
+```{r}
+library(googlesheets4)
+library(tidyverse)
+```
+
+```{r}
+res_raw <- read_sheet("1991TB8SoBDMVh-DEZOLpflXoCA3Dgx0YwAAXzS1TNxc")
+```
+
+```{r}
+res <- 
+  res_raw |> 
+  rename(
+    "q_understand_read" = `Which is easier to understand/read?`,
+    "q_work_with" = `Let's say you are tasked with modifying the dashboard to add a new tab with a few plots. Do you think this would be easier in app.R or app.Qmd?`,
+    "q_friendlier" = `Which feels "friendlier" or more approachable overall?`,
+    "q_actally_use" = `Which would you be more likely to use to create a dashboard?`,
+    "details" = `If you can, provide details on why you like one over the other`,
+    "experience_r" = `How experienced are you with R in general?`,
+    "experience_shiny" = `How experienced are you with building Shiny apps in R?`,
+    "experience_quarto" = `How experienced are you with Quarto?`
+  )
+```
+
+```{r}
+res_summary <-
+  res |> 
+  select(starts_with("q_")) |> 
+  pivot_longer(everything(), names_to = "question", values_to = "preference") |> 
+  group_by(question, preference) |> 
+  summarize(count = length(preference)) |> 
+  group_by(question) |> 
+  mutate(percent = count / sum(count)) |> 
+  ungroup()
+  
+```
+
+# Intro
+
+some kinda intro
+
+### Disclaimer
+
+This is not an official survey of any kind and is subject to tons of biases---it's just for funsies!
+
+TODO:
+
+-   [ ] Make order in legend match order in plot
+
+-   [ ] Add full questions to y-axis with `ggtext` in bubbles maybe
+
+-   [ ] Better colors
+
+```{r}
+ggplot(res_summary, aes(y = question, x = percent, fill = preference)) +
+  geom_col() +
+  geom_vline(xintercept = .5, linetype = 3) +
+  labs(x = "", y = "", fill = "") +
+  scale_x_continuous(labels = scales::percent, expand = c(0,0)) +
+  theme_classic() +
+  theme(legend.position = "top")
+
+```
